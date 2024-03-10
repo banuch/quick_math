@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/pages/about.dart';
-import 'package:go_router_sample/pages/contact_us.dart';
-import 'package:go_router_sample/pages/error_page.dart';
-import 'package:go_router_sample/pages/home.dart';
-import 'package:go_router_sample/pages/profile.dart';
-import 'package:go_router_sample/project/routes/app_route_constants.dart';
+import 'package:quick_math/pages/about.dart';
+import 'package:quick_math/pages/contact_us.dart';
+import 'package:quick_math/pages/error_page.dart';
+import 'package:quick_math/pages/home.dart';
+import 'package:quick_math/pages/profile.dart';
+import 'package:quick_math/routes/app_route_constants.dart';
 
 class NyAppRouter {
   static GoRouter returnRouter(bool isAuth) {
@@ -24,8 +24,8 @@ class NyAppRouter {
           pageBuilder: (context, state) {
             return MaterialPage(
                 child: Profile(
-              userid: state.params['userid']!,
-              username: state.params['username']!,
+              userid: state.pathParameters['userid']!,
+              username: state.pathParameters['username']!,
             ));
           },
         ),
@@ -49,7 +49,7 @@ class NyAppRouter {
       },
       redirect: (context, state) {
         if (!isAuth &&
-            state.location
+            state.matchedLocation
                 .startsWith('/${MyAppRouteConstants.profileRouteName}')) {
           return context.namedLocation(MyAppRouteConstants.contactUsRouteName);
         } else {
